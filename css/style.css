@@ -5,7 +5,7 @@ body{
 .row{
     display: inline-block;
     width: 30%;
-    border-right: black dotted;
+    border-left: black dotted;
     padding:10px;
     vertical-align: top;
 

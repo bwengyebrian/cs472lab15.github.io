@@ -1,14 +1,41 @@
 $(function () {
-$('#submitBtn').click(function () {
-    $.ajax({
-        url: "http://jsonplaceholder.typicode.com/posts",
-        data:{
-            userId:$('#userId').val()},
-        success : successFunction,
-        error : errorFuction
+$('#submitBtn').click(loadUserDetails)
 
-    });
-})
+    function loadUserDetails() {
+
+        $.ajax({
+            url: "http://jsonplaceholder.typicode.com/users/"+$('#userId').val(),
+            success : successUserDetailsFunction,
+            error : errorUserDetailsFuction
+
+        });
+    }
+  function successUserDetailsFunction(data){
+    console.log(data);
+    $('.detail span').remove();
+    $('#id').append($('<span>').text(data.id));
+    $('#name').append($('<span>').text(data.name));
+    $('#email').append($('<span>').text(data.email));
+    $('#phone').append($('<span>').text(data.phone));
+    $('#website').append($('<span>').text(data.website));
+    loadPostsFunction();
+  }
+  function errorUserDetailsFuction(err) {
+      console.log(err);
+  }
+
+ function loadPostsFunction() {
+
+        $.ajax({
+            url: "http://jsonplaceholder.typicode.com/posts",
+            data:{
+                userId:$('#userId').val()},
+            success : successFunction,
+            error : errorFuction
+
+        });
+    }
+
     function successFunction(data) {
         console.log(JSON.stringify(data));
         $('.posts').empty();
